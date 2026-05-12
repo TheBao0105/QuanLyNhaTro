@@ -15,9 +15,9 @@ public static class DbInitializer
         var hash = BCrypt.Net.BCrypt.HashPassword("Admin@123");
         db.TaiKhoans.Add(new TaiKhoan
         {
-            TenDangNhap = "admin",
+            TenDangNhap = "Bao",
             MatKhauHash = hash,
-            HoTen = "Quản trị",
+            HoTen = "Tao",
             VaiTro = "Admin",
             HoatDong = true
         });

@@ -210,3 +210,4 @@ C:\Users\Asus\QuanLyNhaTro\bin\Debug\net10.0\runtimes\win-x86\native\e_sqlite3.d
 C:\Users\Asus\QuanLyNhaTro\obj\Debug\net10.0\compressed\s86cg3m9l6-{0}-7z7u43z31r-7z7u43z31r.gz
 C:\Users\Asus\QuanLyNhaTro\obj\Debug\net10.0\compressed\0gd9mq64tu-{0}-ib1qtc3nhs-ib1qtc3nhs.gz
 C:\Users\Asus\QuanLyNhaTro\obj\Debug\net10.0\compressed\jundcy5gp4-{0}-ib1qtc3nhs-ib1qtc3nhs.gz
+C:\Users\Asus\QuanLyNhaTro\obj\Debug\net10.0\QuanLyNhaTro.sourcelink.json
