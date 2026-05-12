@@ -1,0 +1,14 @@
+@page "/HopDong/Delete/{id:int}"
+@model QuanLyNhaTro.Pages.HopDong.DeleteModel
+@{
+    ViewData["Title"] = "Xóa hợp đồng";
+    var h = Model.HopDong!;
+}
+
+<h1 class="h3 mb-3 text-danger">@ViewData["Title"]</h1>
+<p>Xóa hợp đồng phòng <strong>@h.Phong.TenPhong</strong> — <strong>@h.NguoiThue.HoTen</strong>?</p>
+
+<form method="post" asp-route-id="@h.Id">
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Hủy</a>
+</form>

@@ -1,0 +1,16 @@
+@page "/NguoiThue/Delete/{id:int}"
+@model QuanLyNhaTro.Pages.NguoiThue.DeleteModel
+@{
+    ViewData["Title"] = "Xóa người thuê";
+    var n = Model.NguoiThue!;
+}
+
+<h1 class="h3 mb-3 text-danger">@ViewData["Title"]</h1>
+<p>Xóa người thuê <strong>@n.HoTen</strong>?</p>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post" asp-route-id="@n.Id">
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Hủy</a>
+</form>

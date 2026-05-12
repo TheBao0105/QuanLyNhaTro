@@ -1,0 +1,38 @@
+@page "/NguoiThue/Create"
+@model QuanLyNhaTro.Pages.NguoiThue.CreateModel
+@{
+    ViewData["Title"] = "Thêm người thuê";
+}
+
+<h1 class="h3 mb-3">@ViewData["Title"]</h1>
+
+<form method="post" class="col-md-6">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="NguoiThue.HoTen" class="form-label"></label>
+        <input asp-for="NguoiThue.HoTen" class="form-control" />
+        <span asp-validation-for="NguoiThue.HoTen" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NguoiThue.Cccd" class="form-label">CCCD</label>
+        <input asp-for="NguoiThue.Cccd" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NguoiThue.SoDienThoai" class="form-label">Số điện thoại</label>
+        <input asp-for="NguoiThue.SoDienThoai" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NguoiThue.Email" class="form-label"></label>
+        <input asp-for="NguoiThue.Email" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NguoiThue.DiaChi" class="form-label">Địa chỉ</label>
+        <textarea asp-for="NguoiThue.DiaChi" class="form-control" rows="2"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,40 @@
+@page "/HoaDon"
+@model QuanLyNhaTro.Pages.HoaDon.IndexModel
+@{
+    ViewData["Title"] = "Hóa đơn";
+}
+
+<div class="app-page-toolbar">
+    <h1 class="h3 app-page-title mb-0">Hóa đơn</h1>
+    <a class="btn btn-primary" asp-page="Create"><i class="bi bi-receipt-cutoff me-1"></i>Lập hóa đơn</a>
+</div>
+
+<table class="table table-striped table-bordered align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Phòng</th>
+            <th>Người thuê</th>
+            <th>Kỳ</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th style="width:200px"></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var h in Model.Items)
+    {
+        <tr>
+            <td>@h.HopDong.Phong.TenPhong</td>
+            <td>@h.HopDong.NguoiThue.HoTen</td>
+            <td>@h.Thang/@h.Nam</td>
+            <td>@h.TongTien.ToString("N0") đ</td>
+            <td>@h.TrangThai</td>
+            <td>
+                <a class="btn btn-sm btn-outline-secondary" asp-page="Details" asp-route-id="@h.Id">Chi tiết</a>
+                <a class="btn btn-sm btn-outline-primary" asp-page="Edit" asp-route-id="@h.Id">Sửa</a>
+                <a class="btn btn-sm btn-outline-danger" asp-page="Delete" asp-route-id="@h.Id">Xóa</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

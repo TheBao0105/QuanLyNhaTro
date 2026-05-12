@@ -1,0 +1,14 @@
+/* Theme chính: ~/css/site.css — file scoped này chỉ reset rule mặc định template cũ
+   (footer absolute, màu xanh nút) để không ghi đè giao diện teal. */
+
+footer.footer.app-footer[b-07i6q5aidp] {
+  position: relative !important;
+  bottom: auto !important;
+  width: 100% !important;
+  white-space: normal !important;
+  line-height: inherit !important;
+}
+
+a.navbar-brand[b-07i6q5aidp] {
+  white-space: nowrap;
+}

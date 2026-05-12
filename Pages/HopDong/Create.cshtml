@@ -1,0 +1,59 @@
+@page "/HopDong/Create"
+@model QuanLyNhaTro.Pages.HopDong.CreateModel
+@{
+    ViewData["Title"] = "Tạo hợp đồng";
+}
+
+<h1 class="h3 mb-3">@ViewData["Title"]</h1>
+
+@if (Model.PhongCount == 0 || Model.NguoiThueCount == 0)
+{
+    <div class="alert alert-warning">
+        Cần có ít nhất một <strong>phòng</strong> và một <strong>người thuê</strong> trong hệ thống.
+        @(Model.PhongCount == 0 ? "Thêm phòng trước. " : "")@(Model.NguoiThueCount == 0 ? "Thêm người thuê trước." : "")
+    </div>
+}
+
+<form method="post" class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="HopDong.PhongId" class="form-label">Phòng</label>
+        <select asp-for="HopDong.PhongId" asp-items="Model.PhongSelect" class="form-select">
+            <option value="0">— Chọn phòng —</option>
+        </select>
+        <span asp-validation-for="HopDong.PhongId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.NguoiThueId" class="form-label">Người thuê</label>
+        <select asp-for="HopDong.NguoiThueId" asp-items="Model.NguoiThueSelect" class="form-select">
+            <option value="0">— Chọn người thuê —</option>
+        </select>
+        <span asp-validation-for="HopDong.NguoiThueId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.NgayBatDau" class="form-label"></label>
+        <input asp-for="HopDong.NgayBatDau" class="form-control" type="date" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.NgayKetThuc" class="form-label"></label>
+        <input asp-for="HopDong.NgayKetThuc" class="form-control" type="date" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.TienCoc" class="form-label"></label>
+        <input asp-for="HopDong.TienCoc" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.TrangThai" class="form-label"></label>
+        <select asp-for="HopDong.TrangThai" class="form-select">
+            <option value="HieuLuc">HieuLuc</option>
+            <option value="KetThuc">KetThuc</option>
+            <option value="Huy">Huy</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

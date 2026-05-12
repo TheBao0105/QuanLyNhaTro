@@ -1,0 +1,62 @@
+@page "/Dashboard"
+@model QuanLyNhaTro.Pages.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+    var s = Model.Stats;
+}
+
+<div class="app-page-toolbar">
+    <div>
+        <h1 class="h3 app-page-title mb-1">@ViewData["Title"]</h1>
+        <p class="text-app-muted small mb-0">Tổng quan nhanh hệ thống nhà trọ</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-page="/Phong/Index"><i class="bi bi-door-open me-1"></i>Phòng</a>
+</div>
+
+<div class="row g-3 g-md-4 stat-grid">
+    <div class="col-md-4">
+        <div class="card stat-card border-0 h-100">
+            <div class="card-body">
+                <p class="stat-label mb-0">Tổng phòng</p>
+                <p class="stat-value mb-0">@s.TongPhong</p>
+                <p class="stat-sub mb-0"><i class="bi bi-unlock me-1"></i>Trống: @s.PhongTrong</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card stat-card--slate border-0 h-100">
+            <div class="card-body">
+                <p class="stat-label mb-0">Người thuê</p>
+                <p class="stat-value mb-0">@s.TongNguoiThue</p>
+                <p class="stat-sub mb-0"><i class="bi bi-people me-1"></i>Đang quản lý</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card stat-card--amber border-0 h-100">
+            <div class="card-body">
+                <p class="stat-label mb-0">Hợp đồng hiệu lực</p>
+                <p class="stat-value mb-0">@s.HopDongHieuLuc</p>
+                <p class="stat-sub mb-0"><i class="bi bi-file-earmark-check me-1"></i>Đang thuê</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card stat-card stat-card--rose border-0 h-100">
+            <div class="card-body">
+                <p class="stat-label mb-0">Hóa đơn chưa thu đủ</p>
+                <p class="stat-value mb-0">@s.HoaDonChuaThu</p>
+                <p class="stat-sub mb-0"><i class="bi bi-exclamation-circle me-1"></i>Cần theo dõi</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card stat-card border-0 h-100">
+            <div class="card-body">
+                <p class="stat-label mb-0">Tổng nợ (chưa thanh toán xong)</p>
+                <p class="stat-value mb-0">@s.TongNoThang.ToString("N0")<span class="fs-5 fw-semibold ms-1">đ</span></p>
+                <p class="stat-sub mb-0"><i class="bi bi-cash-stack me-1"></i>Ước tính theo hóa đơn</p>
+            </div>
+        </div>
+    </div>
+</div>

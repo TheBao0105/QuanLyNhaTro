@@ -1,0 +1,447 @@
+/* ===== QuanLyNhaTro — giao diện tổng thể ===== */
+:root,
+[data-bs-theme="light"] {
+  --ql-primary: #0d9488;
+  --ql-primary-dark: #0f766e;
+  --ql-primary-soft: rgba(13, 148, 136, 0.12);
+  --ql-accent: #ea580c;
+  --ql-surface: #ffffff;
+  --ql-surface-2: #f8fafc;
+  --ql-border: rgba(15, 23, 42, 0.08);
+  --ql-text: #0f172a;
+  --ql-muted: #64748b;
+  --ql-radius: 0.75rem;
+  --ql-radius-lg: 1rem;
+  --ql-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 4px 12px rgba(15, 23, 42, 0.06);
+  --ql-shadow-lg: 0 4px 6px rgba(15, 23, 42, 0.05), 0 12px 32px rgba(15, 23, 42, 0.08);
+  --bs-primary: #0d9488;
+  --bs-primary-rgb: 13, 148, 136;
+  --bs-link-color: #0f766e;
+  --bs-link-hover-color: #0d5c56;
+  --bs-border-radius: var(--ql-radius);
+  --bs-body-bg: #f1f5f9;
+  --bs-body-color: var(--ql-text);
+  --bs-secondary-color: var(--ql-muted);
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body.app-body {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.01em;
+  background-color: var(--bs-body-bg);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(13, 148, 136, 0.14), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 0%, rgba(234, 88, 12, 0.06), transparent 45%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1 0 auto;
+}
+
+/* ----- Navbar ----- */
+.app-navbar {
+  background: linear-gradient(120deg, #0f766e 0%, #115e59 48%, #134e4a 100%);
+  border: none !important;
+  box-shadow: var(--ql-shadow-lg);
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+
+.app-navbar .navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #fff !important;
+  font-size: 1.15rem;
+}
+
+.app-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-weight: 500;
+  padding: 0.45rem 0.75rem !important;
+  border-radius: 0.5rem;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link:focus {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.app-navbar .navbar-text {
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 0.875rem;
+}
+
+.app-navbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.app-navbar .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.app-navbar .bi {
+  opacity: 0.9;
+}
+
+/* ----- Main container ----- */
+.app-container {
+  max-width: 1140px;
+}
+
+/* ----- Typography & page chrome ----- */
+.app-main h1,
+.app-main .h1,
+.app-main .display-5,
+.app-main .display-6 {
+  letter-spacing: -0.03em;
+  color: var(--ql-text);
+}
+
+/* Ẩn khối validation khi không có lỗi */
+.validation-summary-valid {
+  display: none !important;
+}
+
+.app-page-title {
+  font-weight: 700;
+  color: var(--ql-text);
+  letter-spacing: -0.03em;
+}
+
+.app-page-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ----- Cards & panels ----- */
+.app-card {
+  background: var(--ql-surface);
+  border: 1px solid var(--ql-border);
+  border-radius: var(--ql-radius-lg);
+  box-shadow: var(--ql-shadow);
+  padding: 1.5rem;
+}
+
+.app-card--flush {
+  padding: 0;
+  overflow: hidden;
+}
+
+.auth-panel {
+  background: var(--ql-surface);
+  border: 1px solid var(--ql-border);
+  border-radius: var(--ql-radius-lg);
+  box-shadow: var(--ql-shadow-lg);
+  padding: 2rem 1.75rem;
+}
+
+.auth-panel .h4,
+.auth-panel h1 {
+  font-weight: 700;
+  color: var(--ql-text);
+}
+
+/* ----- Dashboard stat cards ----- */
+.stat-grid .stat-card {
+  border: 1px solid var(--ql-border);
+  border-radius: var(--ql-radius-lg);
+  background: var(--ql-surface);
+  box-shadow: var(--ql-shadow);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.stat-grid .stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ql-shadow-lg);
+}
+
+.stat-grid .stat-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--ql-primary);
+  border-radius: 4px 0 0 4px;
+}
+
+.stat-grid .stat-card--amber::before {
+  background: #f59e0b;
+}
+
+.stat-grid .stat-card--rose::before {
+  background: #e11d48;
+}
+
+.stat-grid .stat-card--slate::before {
+  background: #475569;
+}
+
+.stat-grid .stat-card .card-body {
+  padding: 1.35rem 1.35rem 1.35rem 1.5rem;
+}
+
+.stat-grid .stat-card .stat-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ql-muted);
+  margin-bottom: 0.35rem;
+}
+
+.stat-grid .stat-card .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--ql-text);
+  line-height: 1.15;
+}
+
+.stat-grid .stat-card .stat-sub {
+  font-size: 0.875rem;
+  color: var(--ql-muted);
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+}
+
+/* ----- Hero (trang chủ) ----- */
+.hero-section {
+  border-radius: var(--ql-radius-lg);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.92) 100%);
+  border: 1px solid var(--ql-border);
+  box-shadow: var(--ql-shadow-lg);
+  padding: 2.5rem 1.75rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: -40% -20% auto auto;
+  width: 55%;
+  height: 120%;
+  background: radial-gradient(circle, var(--ql-primary-soft) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-section .hero-title {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-size: clamp(1.85rem, 4vw, 2.5rem);
+  color: var(--ql-text);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section .hero-lead {
+  color: var(--ql-muted);
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section .btn-lg {
+  padding: 0.65rem 1.35rem;
+  font-weight: 600;
+  border-radius: 0.65rem;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--ql-surface-2);
+  border: 1px solid var(--ql-border);
+  color: var(--ql-muted);
+}
+
+/* ----- Tables ----- */
+.app-main .table {
+  --bs-table-bg: transparent;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--ql-border);
+  border-radius: var(--ql-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--ql-shadow);
+  background: var(--ql-surface);
+}
+
+.app-main .table thead th {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ql-muted);
+  background: var(--ql-surface-2) !important;
+  border-bottom: 1px solid var(--ql-border);
+  padding: 0.85rem 1rem;
+  white-space: nowrap;
+}
+
+.app-main .table tbody td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+  border-color: var(--ql-border);
+}
+
+.app-main .table tbody tr:nth-child(even) {
+  background: rgba(248, 250, 252, 0.65);
+}
+
+.app-main .table tbody tr:hover {
+  background: rgba(13, 148, 136, 0.06);
+}
+
+.app-main .table .btn-sm {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* ----- Forms ----- */
+.app-main .form-control,
+.app-main .form-select {
+  border-radius: 0.55rem;
+  border-color: rgba(15, 23, 42, 0.12);
+  padding: 0.55rem 0.85rem;
+}
+
+.app-main .form-control:focus,
+.app-main .form-select:focus {
+  border-color: rgba(13, 148, 136, 0.45);
+  box-shadow: 0 0 0 0.2rem rgba(13, 148, 136, 0.18);
+}
+
+.app-main .form-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--ql-text);
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.12rem rgba(255, 255, 255, 0.9), 0 0 0 0.25rem rgba(13, 148, 136, 0.35);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--ql-primary);
+  --bs-btn-border-color: var(--ql-primary-dark);
+  --bs-btn-hover-bg: var(--ql-primary-dark);
+  --bs-btn-hover-border-color: #0d5c56;
+  --bs-btn-active-bg: #0d5c56;
+  --bs-btn-active-border-color: #0a524d;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--ql-primary-dark);
+  --bs-btn-border-color: rgba(13, 148, 136, 0.45);
+  --bs-btn-hover-bg: var(--ql-primary);
+  --bs-btn-hover-border-color: var(--ql-primary);
+}
+
+.btn-outline-secondary {
+  --bs-btn-border-color: rgba(15, 23, 42, 0.15);
+}
+
+/* ----- Definition lists (chi tiết) ----- */
+.app-main dl.row dt {
+  color: var(--ql-muted);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.app-main dl.row dd {
+  color: var(--ql-text);
+}
+
+/* ----- Footer ----- */
+.app-footer {
+  margin-top: auto;
+  padding: 1rem 0;
+  background: rgba(15, 23, 42, 0.03);
+  border-top: 1px solid var(--ql-border);
+  font-size: 0.875rem;
+  color: var(--ql-muted);
+}
+
+.app-footer a {
+  color: var(--ql-primary-dark);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ----- Utilities ----- */
+.text-app-muted {
+  color: var(--ql-muted) !important;
+}
+
+code {
+  font-size: 0.85em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.35rem;
+  background: var(--ql-surface-2);
+  border: 1px solid var(--ql-border);
+  color: var(--ql-primary-dark);
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}

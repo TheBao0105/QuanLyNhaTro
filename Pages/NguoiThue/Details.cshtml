@@ -1,0 +1,34 @@
+@page "/NguoiThue/Details/{id:int}"
+@model QuanLyNhaTro.Pages.NguoiThue.DetailsModel
+@{
+    ViewData["Title"] = "Chi tiết người thuê";
+    var n = Model.NguoiThue!;
+}
+
+<h1 class="h3 mb-3">@ViewData["Title"]</h1>
+
+<dl class="row col-md-8">
+    <dt class="col-sm-3">Họ tên</dt><dd class="col-sm-9">@n.HoTen</dd>
+    <dt class="col-sm-3">CCCD</dt><dd class="col-sm-9">@n.Cccd</dd>
+    <dt class="col-sm-3">SĐT</dt><dd class="col-sm-9">@n.SoDienThoai</dd>
+    <dt class="col-sm-3">Email</dt><dd class="col-sm-9">@n.Email</dd>
+    <dt class="col-sm-3">Địa chỉ</dt><dd class="col-sm-9">@n.DiaChi</dd>
+</dl>
+
+<h2 class="h5 mt-4">Hợp đồng</h2>
+<table class="table table-sm">
+    <thead><tr><th>Phòng</th><th>Từ ngày</th><th>Trạng thái</th></tr></thead>
+    <tbody>
+    @foreach (var h in n.HopDongs.OrderByDescending(x => x.NgayBatDau))
+    {
+        <tr>
+            <td>@h.Phong.TenPhong</td>
+            <td>@h.NgayBatDau.ToString("dd/MM/yyyy")</td>
+            <td>@h.TrangThai</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a class="btn btn-outline-primary" asp-page="Edit" asp-route-id="@n.Id">Sửa</a>
+<a class="btn btn-outline-secondary" asp-page="Index">Danh sách</a>

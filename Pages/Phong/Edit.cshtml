@@ -1,0 +1,43 @@
+@page "/Phong/Edit/{id:int}"
+@model QuanLyNhaTro.Pages.Phong.EditModel
+@{
+    ViewData["Title"] = "Sửa phòng";
+}
+
+<h1 class="h3 mb-3">@ViewData["Title"]</h1>
+
+<form method="post" class="col-md-6">
+    <input type="hidden" asp-for="Phong.Id" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Phong.TenPhong" class="form-label"></label>
+        <input asp-for="Phong.TenPhong" class="form-control" />
+        <span asp-validation-for="Phong.TenPhong" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phong.MoTa" class="form-label"></label>
+        <textarea asp-for="Phong.MoTa" class="form-control" rows="2"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phong.GiaThue" class="form-label"></label>
+        <input asp-for="Phong.GiaThue" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phong.DienTichM2" class="form-label">Diện tích (m²)</label>
+        <input asp-for="Phong.DienTichM2" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phong.TrangThai" class="form-label"></label>
+        <select asp-for="Phong.TrangThai" class="form-select">
+            <option>Trong</option>
+            <option>DaThue</option>
+            <option>BaoTri</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

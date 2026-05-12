@@ -1,0 +1,35 @@
+@page "/HopDong/Details/{id:int}"
+@model QuanLyNhaTro.Pages.HopDong.DetailsModel
+@{
+    ViewData["Title"] = "Chi tiết hợp đồng";
+    var h = Model.HopDong!;
+}
+
+<h1 class="h3 mb-3">@ViewData["Title"]</h1>
+
+<dl class="row col-md-8">
+    <dt class="col-sm-3">Phòng</dt><dd class="col-sm-9">@h.Phong.TenPhong</dd>
+    <dt class="col-sm-3">Người thuê</dt><dd class="col-sm-9">@h.NguoiThue.HoTen</dd>
+    <dt class="col-sm-3">Bắt đầu</dt><dd class="col-sm-9">@h.NgayBatDau.ToString("dd/MM/yyyy")</dd>
+    <dt class="col-sm-3">Kết thúc</dt><dd class="col-sm-9">@(h.NgayKetThuc?.ToString("dd/MM/yyyy") ?? "—")</dd>
+    <dt class="col-sm-3">Tiền cọc</dt><dd class="col-sm-9">@h.TienCoc.ToString("N0") đ</dd>
+    <dt class="col-sm-3">Trạng thái</dt><dd class="col-sm-9">@h.TrangThai</dd>
+</dl>
+
+<h2 class="h5 mt-4">Hóa đơn</h2>
+<table class="table table-sm">
+    <thead><tr><th>Tháng</th><th>Tổng</th><th>Trạng thái</th></tr></thead>
+    <tbody>
+    @foreach (var hd in h.HoaDons.OrderByDescending(x => x.Nam).ThenByDescending(x => x.Thang))
+    {
+        <tr>
+            <td>@hd.Thang/@hd.Nam</td>
+            <td>@hd.TongTien.ToString("N0") đ</td>
+            <td>@hd.TrangThai</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a class="btn btn-outline-primary" asp-page="Edit" asp-route-id="@h.Id">Sửa</a>
+<a class="btn btn-outline-secondary" asp-page="Index">Danh sách</a>

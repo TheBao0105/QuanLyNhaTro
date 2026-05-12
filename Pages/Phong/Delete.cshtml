@@ -1,0 +1,16 @@
+@page "/Phong/Delete/{id:int}"
+@model QuanLyNhaTro.Pages.Phong.DeleteModel
+@{
+    ViewData["Title"] = "Xóa phòng";
+    var p = Model.Phong!;
+}
+
+<h1 class="h3 mb-3 text-danger">@ViewData["Title"]</h1>
+<p>Bạn có chắc muốn xóa phòng <strong>@p.TenPhong</strong>?</p>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post" asp-route-id="@p.Id">
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Hủy</a>
+</form>

@@ -1,0 +1,37 @@
+@page "/TaiKhoan/Login"
+@model QuanLyNhaTro.Pages.TaiKhoan.LoginModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="row justify-content-center py-2">
+    <div class="col-md-5 col-lg-4">
+        <div class="auth-panel">
+            <div class="text-center mb-4">
+                <span class="d-inline-flex align-items-center justify-content-center rounded-3 mb-2" style="width:3rem;height:3rem;background:var(--ql-primary-soft);color:var(--ql-primary-dark);">
+                    <i class="bi bi-shield-lock fs-4"></i>
+                </span>
+                <h1 class="h4 mb-1">@ViewData["Title"]</h1>
+                <p class="text-app-muted small mb-0">Chào mừng quay lại QuanLyNhaTro</p>
+            </div>
+            <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                <div asp-validation-summary="All" class="text-danger small mb-3"></div>
+                <div class="mb-3">
+                    <label class="form-label" for="TenDangNhap">Tên đăng nhập</label>
+                    <input class="form-control" asp-for="TenDangNhap" autocomplete="username" placeholder="vd: admin" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="MatKhau">Mật khẩu</label>
+                    <input class="form-control" asp-for="MatKhau" type="password" autocomplete="current-password" />
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2"><i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập</button>
+            </form>
+            <p class="mt-4 mb-2 small text-center text-app-muted">Tài khoản mẫu: <code>admin</code> / <code>Admin@123</code></p>
+            <p class="small text-center mb-0"><a asp-page="Register">Đăng ký tài khoản mới</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

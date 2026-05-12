@@ -1,0 +1,36 @@
+@page "/TaiKhoan/Profile"
+@model QuanLyNhaTro.Pages.TaiKhoan.ProfileModel
+@{
+    ViewData["Title"] = "Hồ sơ";
+    var u = Model.TaiKhoan;
+}
+
+<div class="app-page-toolbar">
+    <h1 class="h3 app-page-title mb-0">@ViewData["Title"]</h1>
+</div>
+
+@if (u is null)
+{
+    <div class="app-card">
+        <p class="text-app-muted mb-0">Không tìm thấy tài khoản.</p>
+    </div>
+}
+else
+{
+    <div class="app-card col-md-8 col-lg-6">
+        <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
+            <span class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0" style="width:3.5rem;height:3.5rem;background:var(--ql-primary-soft);color:var(--ql-primary-dark);">
+                <i class="bi bi-person-circle fs-2"></i>
+            </span>
+            <div>
+                <p class="mb-0 fw-bold fs-5">@u.HoTen</p>
+                <p class="text-app-muted small mb-0"><i class="bi bi-at me-1"></i>@u.TenDangNhap</p>
+            </div>
+        </div>
+        <dl class="row mb-0">
+            <dt class="col-sm-4">Tên đăng nhập</dt><dd class="col-sm-8">@u.TenDangNhap</dd>
+            <dt class="col-sm-4">Họ tên</dt><dd class="col-sm-8">@u.HoTen</dd>
+            <dt class="col-sm-4">Vai trò</dt><dd class="col-sm-8"><span class="badge rounded-pill text-bg-light border">@u.VaiTro</span></dd>
+        </dl>
+    </div>
+}

@@ -1,0 +1,29 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Quản lý nhà trọ";
+}
+
+<section class="hero-section mb-4">
+    <h1 class="hero-title mb-3">Quản lý nhà trọ gọn gàng</h1>
+    <p class="hero-lead lead mb-4">Theo dõi phòng, người thuê, hợp đồng và hóa đơn trên một giao diện rõ ràng, dễ thao tác hàng ngày.</p>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a class="btn btn-primary btn-lg" asp-page="/Dashboard/Index"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+            <a class="btn btn-outline-primary btn-lg" asp-page="/Phong/Index"><i class="bi bi-door-open me-2"></i>Danh sách phòng</a>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a class="btn btn-primary btn-lg" asp-page="/TaiKhoan/Login"><i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập</a>
+            <a class="btn btn-outline-secondary btn-lg" asp-page="/TaiKhoan/Register"><i class="bi bi-person-plus me-2"></i>Tạo tài khoản</a>
+        </div>
+    }
+    <div class="hero-badges">
+        <span class="hero-badge"><i class="bi bi-check2-circle text-success"></i>Phòng &amp; trạng thái</span>
+        <span class="hero-badge"><i class="bi bi-check2-circle text-success"></i>Hợp đồng</span>
+        <span class="hero-badge"><i class="bi bi-check2-circle text-success"></i>Hóa đơn &amp; công nợ</span>
+    </div>
+</section>

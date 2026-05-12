@@ -1,0 +1,42 @@
+@page "/HopDong"
+@model QuanLyNhaTro.Pages.HopDong.IndexModel
+@{
+    ViewData["Title"] = "Hợp đồng";
+}
+
+<div class="app-page-toolbar">
+    <h1 class="h3 app-page-title mb-0">Hợp đồng thuê</h1>
+    <a class="btn btn-primary" asp-page="Create"><i class="bi bi-file-earmark-plus me-1"></i>Tạo hợp đồng</a>
+</div>
+
+<table class="table table-striped table-bordered align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Phòng</th>
+            <th>Người thuê</th>
+            <th>Bắt đầu</th>
+            <th>Kết thúc</th>
+            <th>Cọc</th>
+            <th>Trạng thái</th>
+            <th style="width:200px"></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var h in Model.Items)
+    {
+        <tr>
+            <td>@h.Phong.TenPhong</td>
+            <td>@h.NguoiThue.HoTen</td>
+            <td>@h.NgayBatDau.ToString("dd/MM/yyyy")</td>
+            <td>@(h.NgayKetThuc?.ToString("dd/MM/yyyy") ?? "—")</td>
+            <td>@h.TienCoc.ToString("N0") đ</td>
+            <td>@h.TrangThai</td>
+            <td>
+                <a class="btn btn-sm btn-outline-secondary" asp-page="Details" asp-route-id="@h.Id">Chi tiết</a>
+                <a class="btn btn-sm btn-outline-primary" asp-page="Edit" asp-route-id="@h.Id">Sửa</a>
+                <a class="btn btn-sm btn-outline-danger" asp-page="Delete" asp-route-id="@h.Id">Xóa</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

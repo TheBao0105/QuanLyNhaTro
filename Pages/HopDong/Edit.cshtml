@@ -1,0 +1,46 @@
+@page "/HopDong/Edit/{id:int}"
+@model QuanLyNhaTro.Pages.HopDong.EditModel
+@{
+    ViewData["Title"] = "Sửa hợp đồng";
+}
+
+<h1 class="h3 mb-3">@ViewData["Title"]</h1>
+
+<form method="post" class="col-md-6">
+    <input type="hidden" asp-for="HopDong.Id" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="HopDong.PhongId" class="form-label">Phòng</label>
+        <select asp-for="HopDong.PhongId" asp-items="Model.PhongSelect" class="form-select"></select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.NguoiThueId" class="form-label">Người thuê</label>
+        <select asp-for="HopDong.NguoiThueId" asp-items="Model.NguoiThueSelect" class="form-select"></select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.NgayBatDau" class="form-label"></label>
+        <input asp-for="HopDong.NgayBatDau" class="form-control" type="date" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.NgayKetThuc" class="form-label"></label>
+        <input asp-for="HopDong.NgayKetThuc" class="form-control" type="date" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.TienCoc" class="form-label"></label>
+        <input asp-for="HopDong.TienCoc" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="HopDong.TrangThai" class="form-label"></label>
+        <select asp-for="HopDong.TrangThai" class="form-select">
+            <option value="HieuLuc">HieuLuc</option>
+            <option value="KetThuc">KetThuc</option>
+            <option value="Huy">Huy</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
