@@ -4,45 +4,29 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using QuanLyNhaTro.Data;
+using QuanLyNhaTro.Services;
+using QuanLyNhaTro.ViewModels;
 
 namespace QuanLyNhaTro.Pages.TaiKhoan;
 
 [AllowAnonymous]
 public class LoginModel : PageModel
 {
-    private readonly AppDbContext _db;
+    private readonly AuthService _auth;
 
-    public LoginModel(AppDbContext db) => _db = db;
-
-    [BindProperty]
-    public string TenDangNhap { get; set; } = string.Empty;
+    public LoginModel(AuthService auth) => _auth = auth;
 
     [BindProperty]
-    public string MatKhau { get; set; } = string.Empty;
+    public LoginVM Input { get; set; } = new();
 
-    public string? ReturnUrl { get; set; }
+    public void OnGet(string? returnUrl = null) => Input.ReturnUrl = returnUrl;
 
-    public void OnGet(string? returnUrl = null)
+    public async Task<IActionResult> OnPostAsync(CancellationToken ct)
     {
-        ReturnUrl = returnUrl;
-    }
+        if (!ModelState.IsValid) return Page();
 
-    public async Task<IActionResult> OnPostAsync(string? returnUrl = null, CancellationToken cancellationToken = default)
-    {
-        ReturnUrl = returnUrl;
-        if (string.IsNullOrWhiteSpace(TenDangNhap) || string.IsNullOrWhiteSpace(MatKhau))
-        {
-            ModelState.AddModelError(string.Empty, "Nhập tên đăng nhập và mật khẩu.");
-            return Page();
-        }
-
-        var user = await _db.TaiKhoans.FirstOrDefaultAsync(
-            t => t.TenDangNhap == TenDangNhap && t.HoatDong,
-            cancellationToken);
-
-        if (user is null || !BCrypt.Net.BCrypt.Verify(MatKhau, user.MatKhauHash))
+        var user = await _auth.XacThucAsync(Input.TenDangNhap, Input.MatKhau, ct);
+        if (user is null)
         {
             ModelState.AddModelError(string.Empty, "Sai tên đăng nhập hoặc mật khẩu.");
             return Page();
@@ -50,20 +34,17 @@ public class LoginModel : PageModel
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.NameIdentifier, user.TaiKhoanId.ToString()),
             new(ClaimTypes.Name, user.HoTen),
             new(ClaimTypes.Role, user.VaiTro)
         };
-
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(identity),
+            new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)),
             new AuthenticationProperties { IsPersistent = true });
 
-        if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
-            return LocalRedirect(ReturnUrl);
-
+        if (!string.IsNullOrEmpty(Input.ReturnUrl) && Url.IsLocalUrl(Input.ReturnUrl))
+            return LocalRedirect(Input.ReturnUrl);
         return RedirectToPage("/Dashboard/Index");
     }
 }

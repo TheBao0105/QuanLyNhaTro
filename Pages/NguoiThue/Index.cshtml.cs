@@ -15,6 +15,6 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync(CancellationToken cancellationToken)
     {
-        Items = await _repo.GetAllAsync(cancellationToken);
+        Items = await _repo.GetAllAsync(ct: cancellationToken);
     }
 }

@@ -57,7 +57,7 @@ public class RegisterModel : PageModel
             HoTen = HoTen.Trim(),
             MatKhauHash = BCrypt.Net.BCrypt.HashPassword(MatKhau),
             VaiTro = "ChuTro",
-            HoatDong = true
+            TrangThai = true
         };
 
         _db.TaiKhoans.Add(user);

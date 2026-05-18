@@ -1,0 +1,17 @@
+@page "/HopDong/KetThuc/{id:int}"
+@model QuanLyNhaTro.Pages.HopDong.KetThucModel
+@{ ViewData["Title"] = "Kết thúc hợp đồng"; var h = Model.HopDong!; }
+
+<p>Kết thúc HĐ phòng <strong>@h.Phong.TenPhong</strong> — @h.NguoiThue.HoTen?</p>
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <p class="mb-3">
+        <label class="form-label">Trạng thái phòng sau khi kết thúc</label>
+        <select asp-for="TrangThaiPhong" class="form-select">
+            <option value="ConTrong">Còn trống</option>
+            <option value="BaoTri">Bảo trì</option>
+        </select>
+    </p>
+    <button type="submit" class="btn btn-warning">Kết thúc</button>
+    <a asp-page="Index" class="btn btn-outline-secondary">Hủy</a>
+</form>

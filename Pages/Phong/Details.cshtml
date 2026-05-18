@@ -11,7 +11,7 @@
     <dt class="col-sm-3">Tên phòng</dt><dd class="col-sm-9">@p.TenPhong</dd>
     <dt class="col-sm-3">Mô tả</dt><dd class="col-sm-9">@p.MoTa</dd>
     <dt class="col-sm-3">Giá thuê</dt><dd class="col-sm-9">@p.GiaThue.ToString("N0") đ</dd>
-    <dt class="col-sm-3">Diện tích</dt><dd class="col-sm-9">@p.DienTichM2 m²</dd>
+    <dt class="col-sm-3">Diện tích</dt><dd class="col-sm-9">@p.DienTich m²</dd>
     <dt class="col-sm-3">Trạng thái</dt><dd class="col-sm-9">@p.TrangThai</dd>
 </dl>
 
@@ -30,5 +30,5 @@
     </tbody>
 </table>
 
-<a class="btn btn-outline-primary" asp-page="Edit" asp-route-id="@p.Id">Sửa</a>
+<a class="btn btn-outline-primary" asp-page="Edit" asp-route-id="@p.PhongId">Sửa</a>
 <a class="btn btn-outline-secondary" asp-page="Index">Danh sách</a>

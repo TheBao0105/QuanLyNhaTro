@@ -20,7 +20,7 @@ public class ProfileModel : PageModel
         var idStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (int.TryParse(idStr, out var id))
         {
-            TaiKhoan = await _db.TaiKhoans.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+            TaiKhoan = await _db.TaiKhoans.AsNoTracking().FirstOrDefaultAsync(t => t.TaiKhoanId == id, cancellationToken);
         }
     }
 }

@@ -20,7 +20,7 @@ public class DeleteModel : PageModel
         HopDong = await _db.HopDongs
             .Include(h => h.Phong)
             .Include(h => h.NguoiThue)
-            .FirstOrDefaultAsync(h => h.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(h => h.HopDongId == id, cancellationToken);
 
         if (HopDong is null)
             return NotFound();

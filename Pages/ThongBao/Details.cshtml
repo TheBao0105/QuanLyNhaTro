@@ -1,0 +1,8 @@
+@page "/ThongBao/Details/{id:int}"
+@model QuanLyNhaTro.Pages.ThongBao.DetailsModel
+@{ ViewData["Title"] = "Chi tiết thông báo"; var t = Model.ThongBao!; }
+<article class="app-card">
+<h2 class="h5">@t.TieuDe</h2>
+<p class="text-app-muted small">@t.NgayTao.ToLocalTime()</p>
+<p>@t.NoiDung</p>
+</article>

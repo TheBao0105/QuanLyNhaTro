@@ -1,0 +1,13 @@
+@page "/DichVu/Edit/{id:int}"
+@model QuanLyNhaTro.Pages.DichVu.EditModel
+@{ ViewData["Title"] = "Sửa dịch vụ"; }
+<article class="app-card col-md-6">
+<form method="post">
+    <input type="hidden" asp-for="DichVu.DichVuId" />
+    <p><label asp-for="DichVu.TenDichVu" class="form-label"></label><input asp-for="DichVu.TenDichVu" class="form-control" /></p>
+    <p><label asp-for="DichVu.DonGia" class="form-label"></label><input asp-for="DichVu.DonGia" class="form-control" /></p>
+    <p><label asp-for="DichVu.DonViTinh" class="form-label"></label><input asp-for="DichVu.DonViTinh" class="form-control" /></p>
+    <p><label class="form-label">Đang bật</label><input asp-for="DichVu.TrangThai" type="checkbox" /></p>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+</form>
+</article>

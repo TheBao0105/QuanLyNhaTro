@@ -7,15 +7,15 @@
 <h1 class="h3 mb-3">@ViewData["Title"]</h1>
 
 <form method="post" class="col-md-6">
-    <input type="hidden" asp-for="NguoiThue.Id" />
+    <input type="hidden" asp-for="NguoiThue.NguoiThueId" />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="mb-3">
         <label asp-for="NguoiThue.HoTen" class="form-label"></label>
         <input asp-for="NguoiThue.HoTen" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="NguoiThue.Cccd" class="form-label">CCCD</label>
-        <input asp-for="NguoiThue.Cccd" class="form-control" />
+        <label asp-for="NguoiThue.CCCD" class="form-label">CCCD</label>
+        <input asp-for="NguoiThue.CCCD" class="form-control" />
     </div>
     <div class="mb-3">
         <label asp-for="NguoiThue.SoDienThoai" class="form-label">Số điện thoại</label>

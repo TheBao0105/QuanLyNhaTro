@@ -1,0 +1,16 @@
+@page "/ChiSoDienNuoc"
+@model QuanLyNhaTro.Pages.ChiSoDienNuoc.IndexModel
+@{ ViewData["Title"] = "Chỉ số điện nước"; }
+<div class="app-page-toolbar"><span></span><a class="btn btn-primary" asp-page="Create">Nhập chỉ số</a></div>
+<table class="table table-hover">
+<thead><tr><th>Phòng</th><th>Kỳ</th><th>Điện</th><th>Nước</th><th>Tiền ĐN</th></tr></thead>
+<tbody>
+@foreach (var c in Model.Items) {
+<tr>
+<td>@c.Phong.TenPhong</td><td>@c.Thang/@c.Nam</td>
+<td>@c.ChiSoDienCu → @c.ChiSoDienMoi</td><td>@c.ChiSoNuocCu → @c.ChiSoNuocMoi</td>
+<td>@((c.TienDien+c.TienNuoc).ToString("N0")) đ</td>
+</tr>
+}
+</tbody>
+</table>

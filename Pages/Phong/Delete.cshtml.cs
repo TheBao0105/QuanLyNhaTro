@@ -31,9 +31,9 @@ public class DeleteModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(int id, CancellationToken cancellationToken)
     {
-        if (await _db.HopDongs.AnyAsync(h => h.PhongId == id, cancellationToken))
+        if (await _db.HopDongs.AnyAsync(h => h.PhongId == id && h.TrangThai == Models.TrangThaiConstants.HopDong.HieuLuc, cancellationToken))
         {
-            ModelState.AddModelError(string.Empty, "Không xóa được: phòng đang có hợp đồng.");
+            ModelState.AddModelError(string.Empty, "Không xóa được: phòng đang có hợp đồng hiệu lực.");
             Phong = await _repo.GetByIdAsync(id, cancellationToken);
             return Page();
         }

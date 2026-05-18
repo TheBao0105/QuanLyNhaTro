@@ -1,0 +1,11 @@
+@page "/ThongBao"
+@model QuanLyNhaTro.Pages.ThongBao.IndexModel
+@{ ViewData["Title"] = "Thông báo"; }
+<div class="app-page-toolbar"><span></span><a class="btn btn-primary" asp-page="Create">Tạo thông báo</a></div>
+@foreach (var t in Model.Items) {
+<article class="app-card mb-2">
+<strong>@t.TieuDe</strong> <span class="text-app-muted small">@t.NgayTao.ToLocalTime().ToString("dd/MM/yyyy")</span>
+<p class="mb-0 mt-1">@t.NoiDung</p>
+<a asp-page="Details" asp-route-id="@t.ThongBaoId">Chi tiết</a>
+</article>
+}

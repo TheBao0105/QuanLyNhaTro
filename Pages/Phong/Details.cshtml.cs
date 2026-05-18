@@ -21,7 +21,7 @@ public class DetailsModel : PageModel
             .AsNoTracking()
             .Include(p => p.HopDongs)
             .ThenInclude(h => h.NguoiThue)
-            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(p => p.PhongId == id, cancellationToken);
 
         if (Phong is null)
             return NotFound();

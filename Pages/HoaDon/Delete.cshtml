@@ -2,13 +2,13 @@
 @model QuanLyNhaTro.Pages.HoaDon.DeleteModel
 @{
     ViewData["Title"] = "Xóa hóa đơn";
-    var h = Model.HoaDon!;
+    var h = Model.Invoice!;
 }
 
 <h1 class="h3 mb-3 text-danger">@ViewData["Title"]</h1>
-<p>Xóa hóa đơn kỳ <strong>@h.Thang/@h.Nam</strong> — @h.HopDong.Phong.TenPhong?</p>
+<p>Xóa hóa đơn kỳ <strong>@h.Thang/@h.Nam</strong> — @h.Phong.TenPhong?</p>
 
-<form method="post" asp-route-id="@h.Id">
+<form method="post" asp-route-id="@h.HoaDonId">
     <button type="submit" class="btn btn-danger">Xóa</button>
     <a class="btn btn-outline-secondary" asp-page="Index">Hủy</a>
 </form>

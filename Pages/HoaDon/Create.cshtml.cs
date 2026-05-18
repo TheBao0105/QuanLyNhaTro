@@ -4,88 +4,68 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuanLyNhaTro.Data;
+using QuanLyNhaTro.Models;
 using QuanLyNhaTro.Services;
-using Entity = QuanLyNhaTro.Models.HoaDon;
 
 namespace QuanLyNhaTro.Pages.HoaDon;
 
-[Authorize]
+[Authorize(Policy = "QuanLy")]
 public class CreateModel : PageModel
 {
     private readonly AppDbContext _db;
-    private readonly IHoaDonService _hoaDonService;
+    private readonly HoaDonService _hoaDonService;
 
-    public CreateModel(AppDbContext db, IHoaDonService hoaDonService)
+    public CreateModel(AppDbContext db, HoaDonService hoaDonService)
     {
         _db = db;
         _hoaDonService = hoaDonService;
     }
 
     [BindProperty]
-    public Entity HoaDon { get; set; } = new();
+    public int PhongId { get; set; }
 
-    public SelectList HopDongSelect { get; private set; } = null!;
+    [BindProperty]
+    public int Thang { get; set; }
 
-    public async Task OnGetAsync(CancellationToken cancellationToken)
+    [BindProperty]
+    public int Nam { get; set; }
+
+    public SelectList PhongSelect { get; private set; } = null!;
+
+    public async Task OnGetAsync(CancellationToken ct)
     {
         var now = DateTime.UtcNow;
-        HoaDon.Thang = now.Month;
-        HoaDon.Nam = now.Year;
-        HoaDon.TienPhong = 0;
-        HoaDon.TienDien = 0;
-        HoaDon.TienNuoc = 0;
-        HoaDon.TienDichVu = 0;
-        HoaDon.TrangThai = "ChuaThanhToan";
-        await LoadLookupsAsync(cancellationToken);
+        Thang = now.Month;
+        Nam = now.Year;
+        await LoadPhongAsync(ct);
     }
 
-    public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> OnPostAsync(CancellationToken ct)
     {
-        await LoadLookupsAsync(cancellationToken);
-        if (!ModelState.IsValid)
-            return Page();
-
-        var dup = await _db.HoaDons.AnyAsync(
-            h => h.HopDongId == HoaDon.HopDongId && h.Thang == HoaDon.Thang && h.Nam == HoaDon.Nam,
-            cancellationToken);
-        if (dup)
+        await LoadPhongAsync(ct);
+        if (PhongId <= 0)
         {
-            ModelState.AddModelError(string.Empty, "Đã có hóa đơn cho hợp đồng và kỳ này.");
+            ModelState.AddModelError(nameof(PhongId), "Chọn phòng.");
             return Page();
         }
 
-        _hoaDonService.TinhLaiTongTien(HoaDon);
-        HoaDon.NgayLap = DateTime.UtcNow;
-        try
+        (bool ok, string? error, HoaDonEntity? _) = await _hoaDonService.TaoHoaDonTuPhongAsync(PhongId, Thang, Nam, ct);
+        if (!ok)
         {
-            _db.HoaDons.Add(HoaDon);
-            await _db.SaveChangesAsync(cancellationToken);
-            await _hoaDonService.SyncTrangThaiTheoThanhToanAsync(HoaDon, cancellationToken);
-            await _db.SaveChangesAsync(cancellationToken);
-        }
-        catch (DbUpdateException)
-        {
-            ModelState.AddModelError(string.Empty, "Không lưu được hóa đơn (trùng kỳ hoặc hợp đồng không hợp lệ).");
+            ModelState.AddModelError(string.Empty, error ?? "Không tạo được hóa đơn.");
             return Page();
         }
 
+        TempData["Success"] = "Đã lập hóa đơn tự động (phòng, điện nước, dịch vụ).";
         return RedirectToPage("Index");
     }
 
-    private async Task LoadLookupsAsync(CancellationToken cancellationToken)
+    private async Task LoadPhongAsync(CancellationToken ct)
     {
-        var hopDongs = await _db.HopDongs
-            .AsNoTracking()
-            .Where(h => h.TrangThai == "HieuLuc")
-            .Include(h => h.Phong)
-            .Include(h => h.NguoiThue)
-            .OrderBy(h => h.Phong!.TenPhong)
-            .ToListAsync(cancellationToken);
-
-        HopDongSelect = new SelectList(
-            hopDongs.Select(h => new { h.Id, Text = $"{h.Phong.TenPhong} — {h.NguoiThue.HoTen}" }),
-            "Id",
-            "Text",
-            HoaDon.HopDongId);
+        var phongs = await _db.Phongs.AsNoTracking()
+            .Where(p => p.TrangThai == TrangThaiConstants.Phong.DangThue)
+            .OrderBy(p => p.TenPhong)
+            .ToListAsync(ct);
+        PhongSelect = new SelectList(phongs, nameof(global::QuanLyNhaTro.Models.Phong.PhongId), nameof(global::QuanLyNhaTro.Models.Phong.TenPhong), PhongId);
     }
 }

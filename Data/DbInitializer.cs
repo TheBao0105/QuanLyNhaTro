@@ -1,38 +1,43 @@
-using Microsoft.EntityFrameworkCore;
-using QuanLyNhaTro.Models;
-
-namespace QuanLyNhaTro.Data;
-
-public static class DbInitializer
-{
-    public static async Task InitializeAsync(AppDbContext db, ILogger logger, CancellationToken cancellationToken = default)
-    {
-        await db.Database.MigrateAsync(cancellationToken);
-
-        if (await db.TaiKhoans.AnyAsync(cancellationToken))
-            return;
-
-        var hash = BCrypt.Net.BCrypt.HashPassword("Admin@123");
-        db.TaiKhoans.Add(new TaiKhoan
-        {
-            TenDangNhap = "Bao",
-            MatKhauHash = hash,
-            HoTen = "Tao",
-            VaiTro = "Admin",
-            HoatDong = true
-        });
-
-        db.DichVus.AddRange(
-            new DichVu { TenDichVu = "Wifi", DonGia = 50000, DonViTinh = "thang" },
-            new DichVu { TenDichVu = "Giữ xe", DonGia = 100000, DonViTinh = "thang" }
-        );
-
-        db.Phongs.AddRange(
-            new Phong { TenPhong = "P101", GiaThue = 3_500_000, DienTichM2 = 20, TrangThai = "Trong" },
-            new Phong { TenPhong = "P102", GiaThue = 4_000_000, DienTichM2 = 25, TrangThai = "Trong" }
-        );
-
-        await db.SaveChangesAsync(cancellationToken);
-        logger.LogInformation("Đã khởi tạo dữ liệu mẫu (admin / Admin@123).");
-    }
-}
+using Microsoft.EntityFrameworkCore;
+using QuanLyNhaTro.Models;
+
+namespace QuanLyNhaTro.Data;
+
+public static class DbInitializer
+{
+    public static async Task InitializeAsync(AppDbContext db, ILogger logger, CancellationToken ct = default)
+    {
+        var pending = await db.Database.GetPendingMigrationsAsync(ct);
+        if (pending.Any())
+            logger.LogInformation("Áp dụng migration: {Names}", string.Join(", ", pending));
+
+        await db.Database.MigrateAsync(ct);
+
+        if (await db.TaiKhoans.AnyAsync(ct)) return;
+
+        db.TaiKhoans.Add(new TaiKhoan
+        {
+            TenDangNhap = "admin",
+            MatKhauHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
+            HoTen = "Quản trị hệ thống",
+            VaiTro = TrangThaiConstants.VaiTro.Admin,
+            TrangThai = true,
+            NgayTao = DateTime.UtcNow
+        });
+
+        db.DichVus.AddRange(
+            new DichVu { TenDichVu = "Internet", DonGia = 100_000, DonViTinh = "tháng", TrangThai = true },
+            new DichVu { TenDichVu = "Rác", DonGia = 30_000, DonViTinh = "tháng", TrangThai = true },
+            new DichVu { TenDichVu = "Gửi xe", DonGia = 150_000, DonViTinh = "tháng", TrangThai = true }
+        );
+
+        db.Phongs.AddRange(
+            new Phong { TenPhong = "P101", GiaThue = 3_500_000, DienTich = 20, SoNguoiToiDa = 2, TrangThai = TrangThaiConstants.Phong.ConTrong },
+            new Phong { TenPhong = "P102", GiaThue = 4_000_000, DienTich = 25, SoNguoiToiDa = 3, TrangThai = TrangThaiConstants.Phong.ConTrong }
+        );
+
+        await db.SaveChangesAsync(ct);
+        logger.LogInformation("Đã seed dữ liệu mẫu. Đăng nhập: admin / Admin@123");
+    }
+}
+

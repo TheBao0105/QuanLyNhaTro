@@ -1,0 +1,11 @@
+@page "/ThongBao/Create"
+@model QuanLyNhaTro.Pages.ThongBao.CreateModel
+@{ ViewData["Title"] = "Tạo thông báo"; }
+<article class="app-card col-md-8">
+<form method="post">
+<p><label asp-for="ThongBao.TieuDe"></label><input asp-for="ThongBao.TieuDe" class="form-control" /></p>
+<p><label asp-for="ThongBao.NoiDung"></label><textarea asp-for="ThongBao.NoiDung" class="form-control" rows="5"></textarea></p>
+<p><label asp-for="ThongBao.DoiTuongNhan"></label><input asp-for="ThongBao.DoiTuongNhan" class="form-control" /></p>
+<button type="submit" class="btn btn-primary">Đăng</button>
+</form>
+</article>

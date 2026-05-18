@@ -30,8 +30,28 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/Asus/QuanLyNhaTro/Pages/ChiSoDienNuoc/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hpU29EaWVuTnVvY1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/ChiSoDienNuoc/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hpU29EaWVuTnVvY1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Asus/QuanLyNhaTro/Pages/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/DichVu/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGljaFZ1XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/DichVu/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGljaFZ1XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/DichVu/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGljaFZ1XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Asus/QuanLyNhaTro/Pages/Error.cshtml]
@@ -74,8 +94,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9wRG9uZ1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Asus/QuanLyNhaTro/Pages/HopDong/GiaHan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9wRG9uZ1xHaWFIYW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Asus/QuanLyNhaTro/Pages/HopDong/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9wRG9uZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/HopDong/KetThuc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9wRG9uZ1xLZXRUaHVjLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Asus/QuanLyNhaTro/Pages/Index.cshtml]
@@ -126,6 +154,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Asus/QuanLyNhaTro/Pages/Shared/_Sidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Asus/QuanLyNhaTro/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -144,6 +176,38 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Asus/QuanLyNhaTro/Pages/TaiKhoan/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFpS2hvYW5cUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/ThanhToan/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGhhbmhUb2FuXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/ThanhToan/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGhhbmhUb2FuXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/ThongBao/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGhvbmdCYW9cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/ThongBao/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGhvbmdCYW9cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/ThongBao/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGhvbmdCYW9cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/YeuCauSuaChua/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcWWV1Q2F1U3VhQ2h1YVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/YeuCauSuaChua/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcWWV1Q2F1U3VhQ2h1YVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/QuanLyNhaTro/Pages/YeuCauSuaChua/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcWWV1Q2F1U3VhQ2h1YVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Asus/QuanLyNhaTro/Pages/_ViewImports.cshtml]

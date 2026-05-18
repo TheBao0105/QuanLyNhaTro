@@ -2,14 +2,14 @@
 @model QuanLyNhaTro.Pages.HoaDon.DetailsModel
 @{
     ViewData["Title"] = "Chi tiết hóa đơn";
-    var h = Model.HoaDon!;
+    var h = Model.Invoice!;
 }
 
 <h1 class="h3 mb-3">@ViewData["Title"]</h1>
 
 <dl class="row col-md-8">
-    <dt class="col-sm-3">Phòng</dt><dd class="col-sm-9">@h.HopDong.Phong.TenPhong</dd>
-    <dt class="col-sm-3">Người thuê</dt><dd class="col-sm-9">@h.HopDong.NguoiThue.HoTen</dd>
+    <dt class="col-sm-3">Phòng</dt><dd class="col-sm-9">@h.Phong.TenPhong</dd>
+    <dt class="col-sm-3">Người thuê</dt><dd class="col-sm-9">@(Model.NguoiThueHoTen ?? "—")</dd>
     <dt class="col-sm-3">Kỳ</dt><dd class="col-sm-9">@h.Thang/@h.Nam</dd>
     <dt class="col-sm-3">Tiền phòng</dt><dd class="col-sm-9">@h.TienPhong.ToString("N0") đ</dd>
     <dt class="col-sm-3">Điện</dt><dd class="col-sm-9">@h.TienDien.ToString("N0") đ</dd>
@@ -36,5 +36,5 @@
     </tbody>
 </table>
 
-<a class="btn btn-outline-primary" asp-page="Edit" asp-route-id="@h.Id">Sửa</a>
+<a class="btn btn-outline-primary" asp-page="Edit" asp-route-id="@h.HoaDonId">Sửa</a>
 <a class="btn btn-outline-secondary" asp-page="Index">Danh sách</a>

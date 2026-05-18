@@ -1,0 +1,25 @@
+@page "/ThanhToan"
+@model QuanLyNhaTro.Pages.ThanhToan.IndexModel
+@{ ViewData["Title"] = "Thanh toán"; }
+
+<div class="app-page-toolbar">
+    <span></span>
+    <a class="btn btn-primary" asp-page="Create"><i class="bi bi-cash me-1"></i>Ghi nhận thanh toán</a>
+</div>
+
+<table class="table table-hover">
+    <thead><tr><th>Ngày</th><th>Phòng</th><th>Kỳ HD</th><th>Số tiền</th><th>Phương thức</th><th>Người thu</th></tr></thead>
+    <tbody>
+    @foreach (var t in Model.Items)
+    {
+        <tr>
+            <td>@t.NgayThanhToan.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+            <td>@t.HoaDon.Phong.TenPhong</td>
+            <td>@t.HoaDon.Thang/@t.HoaDon.Nam</td>
+            <td>@t.SoTien.ToString("N0") đ</td>
+            <td>@t.PhuongThuc</td>
+            <td>@t.NguoiThu</td>
+        </tr>
+    }
+    </tbody>
+</table>

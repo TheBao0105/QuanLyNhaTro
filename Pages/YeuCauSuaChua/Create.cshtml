@@ -1,0 +1,11 @@
+@page "/YeuCauSuaChua/Create"
+@model QuanLyNhaTro.Pages.YeuCauSuaChua.CreateModel
+@{ ViewData["Title"] = "Tạo yêu cầu sửa chữa"; }
+<article class="app-card col-md-6">
+<form method="post">
+<p><label>Phòng</label><select asp-for="YeuCau.PhongId" asp-items="Model.PhongSelect" class="form-select"></select></p>
+<p><label asp-for="YeuCau.TieuDe"></label><input asp-for="YeuCau.TieuDe" class="form-control" /></p>
+<p><label asp-for="YeuCau.NoiDung"></label><textarea asp-for="YeuCau.NoiDung" class="form-control" rows="4"></textarea></p>
+<button type="submit" class="btn btn-primary">Gửi</button>
+</form>
+</article>

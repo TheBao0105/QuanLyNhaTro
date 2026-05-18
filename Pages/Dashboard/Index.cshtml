@@ -5,58 +5,60 @@
     var s = Model.Stats;
 }
 
-<div class="app-page-toolbar">
-    <div>
-        <h1 class="h3 app-page-title mb-1">@ViewData["Title"]</h1>
-        <p class="text-app-muted small mb-0">Tổng quan nhanh hệ thống nhà trọ</p>
+<div class="row g-3 stat-grid mb-4">
+    <div class="col-6 col-md-4 col-xl-2">
+        <div class="card stat-card border-0"><div class="card-body"><p class="stat-label">Tổng phòng</p><p class="stat-value">@s.TongPhong</p></div></div>
     </div>
-    <a class="btn btn-outline-primary" asp-page="/Phong/Index"><i class="bi bi-door-open me-1"></i>Phòng</a>
+    <div class="col-6 col-md-4 col-xl-2">
+        <div class="card stat-card stat-card--slate border-0"><div class="card-body"><p class="stat-label">Trống</p><p class="stat-value">@s.PhongTrong</p></div></div>
+    </div>
+    <div class="col-6 col-md-4 col-xl-2">
+        <div class="card stat-card border-0"><div class="card-body"><p class="stat-label">Đang thuê</p><p class="stat-value">@s.PhongDangThue</p></div></div>
+    </div>
+    <div class="col-6 col-md-4 col-xl-2">
+        <div class="card stat-card stat-card--amber border-0"><div class="card-body"><p class="stat-label">Bảo trì</p><p class="stat-value">@s.PhongBaoTri</p></div></div>
+    </div>
+    <div class="col-6 col-md-4 col-xl-2">
+        <div class="card stat-card border-0"><div class="card-body"><p class="stat-label">Người thuê</p><p class="stat-value">@s.TongNguoiThue</p></div></div>
+    </div>
+    <div class="col-6 col-md-4 col-xl-2">
+        <div class="card stat-card stat-card--rose border-0"><div class="card-body"><p class="stat-label">HĐ hiệu lực</p><p class="stat-value">@s.HopDongHieuLuc</p></div></div>
+    </div>
 </div>
 
-<div class="row g-3 g-md-4 stat-grid">
-    <div class="col-md-4">
-        <div class="card stat-card border-0 h-100">
-            <div class="card-body">
-                <p class="stat-label mb-0">Tổng phòng</p>
-                <p class="stat-value mb-0">@s.TongPhong</p>
-                <p class="stat-sub mb-0"><i class="bi bi-unlock me-1"></i>Trống: @s.PhongTrong</p>
-            </div>
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="app-card"><p class="text-app-muted small mb-1">Doanh thu tháng</p><p class="fs-4 fw-bold mb-0">@s.DoanhThuThang.ToString("N0") đ</p></div></div>
+    <div class="col-md-4"><div class="app-card"><p class="text-app-muted small mb-1">Doanh thu năm</p><p class="fs-4 fw-bold mb-0">@s.DoanhThuNam.ToString("N0") đ</p></div></div>
+    <div class="col-md-4"><div class="app-card"><p class="text-app-muted small mb-1">Tổng công nợ</p><p class="fs-4 fw-bold text-danger mb-0">@s.TongNo.ToString("N0") đ</p></div></div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="app-card">
+            <h2 class="h6 mb-3">Hợp đồng sắp hết hạn</h2>
+            <table class="table table-sm mb-0">
+                <thead><tr><th>Phòng</th><th>Người thuê</th><th>Hết hạn</th></tr></thead>
+                <tbody>
+                @foreach (var h in s.HopDongSapHetHan)
+                {
+                    <tr><td>@h.TenPhong</td><td>@h.TenNguoiThue</td><td>@h.NgayKetThuc?.ToString("dd/MM/yyyy")</td></tr>
+                }
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card stat-card stat-card--slate border-0 h-100">
-            <div class="card-body">
-                <p class="stat-label mb-0">Người thuê</p>
-                <p class="stat-value mb-0">@s.TongNguoiThue</p>
-                <p class="stat-sub mb-0"><i class="bi bi-people me-1"></i>Đang quản lý</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card stat-card stat-card--amber border-0 h-100">
-            <div class="card-body">
-                <p class="stat-label mb-0">Hợp đồng hiệu lực</p>
-                <p class="stat-value mb-0">@s.HopDongHieuLuc</p>
-                <p class="stat-sub mb-0"><i class="bi bi-file-earmark-check me-1"></i>Đang thuê</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card stat-card stat-card--rose border-0 h-100">
-            <div class="card-body">
-                <p class="stat-label mb-0">Hóa đơn chưa thu đủ</p>
-                <p class="stat-value mb-0">@s.HoaDonChuaThu</p>
-                <p class="stat-sub mb-0"><i class="bi bi-exclamation-circle me-1"></i>Cần theo dõi</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card stat-card border-0 h-100">
-            <div class="card-body">
-                <p class="stat-label mb-0">Tổng nợ (chưa thanh toán xong)</p>
-                <p class="stat-value mb-0">@s.TongNoThang.ToString("N0")<span class="fs-5 fw-semibold ms-1">đ</span></p>
-                <p class="stat-sub mb-0"><i class="bi bi-cash-stack me-1"></i>Ước tính theo hóa đơn</p>
-            </div>
+    <div class="col-lg-6">
+        <div class="app-card">
+            <h2 class="h6 mb-3">Hóa đơn quá hạn / chưa thu</h2>
+            <table class="table table-sm mb-0">
+                <thead><tr><th>Phòng</th><th>Kỳ</th><th>Còn nợ</th></tr></thead>
+                <tbody>
+                @foreach (var h in s.HoaDonQuaHan)
+                {
+                    <tr><td>@h.TenPhong</td><td>@h.Thang/@h.Nam</td><td>@h.ConNo.ToString("N0") đ</td></tr>
+                }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

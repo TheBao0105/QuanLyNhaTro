@@ -20,7 +20,7 @@
 <table class="table table-sm">
     <thead><tr><th>Tháng</th><th>Tổng</th><th>Trạng thái</th></tr></thead>
     <tbody>
-    @foreach (var hd in h.HoaDons.OrderByDescending(x => x.Nam).ThenByDescending(x => x.Thang))
+    @foreach (var hd in Model.HoaDons)
     {
         <tr>
             <td>@hd.Thang/@hd.Nam</td>
@@ -31,5 +31,5 @@
     </tbody>
 </table>
 
-<a class="btn btn-outline-primary" asp-page="Edit" asp-route-id="@h.Id">Sửa</a>
+<a class="btn btn-outline-primary" asp-page="Edit" asp-route-id="@h.HopDongId">Sửa</a>
 <a class="btn btn-outline-secondary" asp-page="Index">Danh sách</a>

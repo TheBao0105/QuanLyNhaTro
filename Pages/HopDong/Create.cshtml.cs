@@ -4,15 +4,22 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuanLyNhaTro.Data;
+using QuanLyNhaTro.Models;
+using QuanLyNhaTro.Services;
 
 namespace QuanLyNhaTro.Pages.HopDong;
 
-[Authorize]
+[Authorize(Policy = "QuanLy")]
 public class CreateModel : PageModel
 {
     private readonly AppDbContext _db;
+    private readonly HopDongService _hopDongService;
 
-    public CreateModel(AppDbContext db) => _db = db;
+    public CreateModel(AppDbContext db, HopDongService hopDongService)
+    {
+        _db = db;
+        _hopDongService = hopDongService;
+    }
 
     [BindProperty]
     public global::QuanLyNhaTro.Models.HopDong HopDong { get; set; } = new();
@@ -22,67 +29,38 @@ public class CreateModel : PageModel
     public int PhongCount { get; private set; }
     public int NguoiThueCount { get; private set; }
 
-    public async Task OnGetAsync(CancellationToken cancellationToken)
+    public async Task OnGetAsync(CancellationToken ct)
     {
-        ApplyFormDefaults();
-        await LoadLookupsAsync(cancellationToken);
+        HopDong.NgayBatDau = DateTime.Today;
+        HopDong.TrangThai = TrangThaiConstants.HopDong.HieuLuc;
+        await LoadLookupsAsync(ct);
     }
 
-    public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> OnPostAsync(CancellationToken ct)
     {
-        await LoadLookupsAsync(cancellationToken);
-        NormalizeDates();
+        await LoadLookupsAsync(ct);
+        if (!ModelState.IsValid) return Page();
 
-        if (!ModelState.IsValid)
-            return Page();
-
-        try
+        var (ok, error) = await _hopDongService.TaoHopDongAsync(HopDong, ct);
+        if (!ok)
         {
-            _db.HopDongs.Add(HopDong);
-            await _db.SaveChangesAsync(cancellationToken);
-
-            if (HopDong.TrangThai == "HieuLuc")
-            {
-                var phong = await _db.Phongs.FindAsync(new object[] { HopDong.PhongId }, cancellationToken);
-                if (phong is not null)
-                {
-                    phong.TrangThai = "DaThue";
-                    await _db.SaveChangesAsync(cancellationToken);
-                }
-            }
-
-            return RedirectToPage("Index");
-        }
-        catch (DbUpdateException)
-        {
-            ModelState.AddModelError(string.Empty,
-                "Không lưu được hợp đồng (ràng buộc CSDL hoặc phòng đã có hợp đồng khác). Vui lòng thử lại hoặc chọn phòng/người thuê khác.");
+            ModelState.AddModelError(string.Empty, error ?? "Không tạo được hợp đồng.");
             return Page();
         }
+        TempData["Success"] = "Đã tạo hợp đồng.";
+        return RedirectToPage("Index");
     }
 
-    private void ApplyFormDefaults()
+    private async Task LoadLookupsAsync(CancellationToken ct)
     {
-        var today = DateTime.Today;
-        HopDong.NgayBatDau = today;
-        HopDong.NgayKetThuc = null;
-        HopDong.TienCoc = 0;
-        HopDong.TrangThai = "HieuLuc";
-    }
+        PhongCount = await _db.Phongs.CountAsync(ct);
+        NguoiThueCount = await _db.NguoiThues.CountAsync(ct);
 
-    private void NormalizeDates()
-    {
-        if (HopDong.NgayBatDau.Year < 1900)
-            HopDong.NgayBatDau = DateTime.Today;
-    }
-
-    private async Task LoadLookupsAsync(CancellationToken cancellationToken)
-    {
-        var phongs = await _db.Phongs.AsNoTracking().OrderBy(p => p.TenPhong).ToListAsync(cancellationToken);
-        var nguoi = await _db.NguoiThues.AsNoTracking().OrderBy(n => n.HoTen).ToListAsync(cancellationToken);
-        PhongCount = phongs.Count;
-        NguoiThueCount = nguoi.Count;
-        PhongSelect = new SelectList(phongs, nameof(global::QuanLyNhaTro.Models.Phong.Id), nameof(global::QuanLyNhaTro.Models.Phong.TenPhong));
-        NguoiThueSelect = new SelectList(nguoi, nameof(global::QuanLyNhaTro.Models.NguoiThue.Id), nameof(global::QuanLyNhaTro.Models.NguoiThue.HoTen));
+        var phongs = await _db.Phongs.AsNoTracking()
+            .Where(p => p.TrangThai != TrangThaiConstants.Phong.DangThue)
+            .OrderBy(p => p.TenPhong).ToListAsync(ct);
+        var nguoi = await _db.NguoiThues.AsNoTracking().OrderBy(n => n.HoTen).ToListAsync(ct);
+        PhongSelect = new SelectList(phongs, nameof(global::QuanLyNhaTro.Models.Phong.PhongId), nameof(global::QuanLyNhaTro.Models.Phong.TenPhong));
+        NguoiThueSelect = new SelectList(nguoi, nameof(global::QuanLyNhaTro.Models.NguoiThue.NguoiThueId), nameof(global::QuanLyNhaTro.Models.NguoiThue.HoTen));
     }
 }

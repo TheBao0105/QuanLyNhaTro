@@ -1,0 +1,18 @@
+@page "/ChiSoDienNuoc/Create"
+@model QuanLyNhaTro.Pages.ChiSoDienNuoc.CreateModel
+@{ ViewData["Title"] = "Nhập chỉ số"; }
+<article class="app-card col-md-8">
+<form method="post">
+<div asp-validation-summary="All" class="text-danger mb-2"></div>
+<p><label>Phòng</label><select asp-for="ChiSo.PhongId" asp-items="Model.PhongSelect" class="form-select"></select></p>
+<p class="row"><span class="col"><label>Tháng</label><input asp-for="ChiSo.Thang" class="form-control" /></span>
+<span class="col"><label>Năm</label><input asp-for="ChiSo.Nam" class="form-control" /></span></p>
+<p class="row"><span class="col"><label>Điện cũ</label><input asp-for="ChiSo.ChiSoDienCu" class="form-control" /></span>
+<span class="col"><label>Điện mới</label><input asp-for="ChiSo.ChiSoDienMoi" class="form-control" /></span></p>
+<p class="row"><span class="col"><label>Nước cũ</label><input asp-for="ChiSo.ChiSoNuocCu" class="form-control" /></span>
+<span class="col"><label>Nước mới</label><input asp-for="ChiSo.ChiSoNuocMoi" class="form-control" /></span></p>
+<p class="row"><span class="col"><label>Đơn giá điện</label><input asp-for="ChiSo.DonGiaDien" class="form-control" /></span>
+<span class="col"><label>Đơn giá nước</label><input asp-for="ChiSo.DonGiaNuoc" class="form-control" /></span></p>
+<button type="submit" class="btn btn-primary">Lưu</button>
+</form>
+</article>

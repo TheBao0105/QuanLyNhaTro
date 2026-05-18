@@ -1,0 +1,13 @@
+@page "/YeuCauSuaChua"
+@model QuanLyNhaTro.Pages.YeuCauSuaChua.IndexModel
+@{ ViewData["Title"] = "Yêu cầu sửa chữa"; }
+<div class="app-page-toolbar"><span></span><a class="btn btn-primary" asp-page="Create">Tạo yêu cầu</a></div>
+<table class="table table-hover">
+<thead><tr><th>Phòng</th><th>Tiêu đề</th><th>Ngày</th><th>TT</th><th></th></tr></thead>
+<tbody>
+@foreach (var y in Model.Items) {
+<tr><td>@y.Phong.TenPhong</td><td>@y.TieuDe</td><td>@y.NgayGui.ToString("dd/MM/yyyy")</td><td>@y.TrangThai</td>
+<td><a asp-page="Edit" asp-route-id="@y.YeuCauSuaChuaId">Sửa</a></td></tr>
+}
+</tbody>
+</table>

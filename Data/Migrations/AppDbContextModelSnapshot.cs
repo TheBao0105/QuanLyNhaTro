@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyNhaTro.Data;
 
@@ -15,79 +16,188 @@ namespace QuanLyNhaTro.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.0-preview.2.25163.8");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "10.0.8")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            modelBuilder.Entity("QuanLyNhaTro.Models.DichVu", b =>
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("QuanLyNhaTro.Models.ChiSoDienNuoc", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ChiSoDienNuocId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChiSoDienNuocId"));
+
+                    b.Property<int>("ChiSoDienCu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChiSoDienMoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChiSoNuocCu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChiSoNuocMoi")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("DonGiaDien")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DonGiaNuoc")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Nam")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("NgayNhap")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PhongId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Thang")
+                        .HasColumnType("int");
+
+                    b.HasKey("ChiSoDienNuocId");
+
+                    b.HasIndex("PhongId", "Thang", "Nam")
+                        .IsUnique();
+
+                    b.ToTable("ChiSoDienNuocs");
+                });
+
+            modelBuilder.Entity("QuanLyNhaTro.Models.ChiTietHoaDon", b =>
+                {
+                    b.Property<int>("ChiTietHoaDonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChiTietHoaDonId"));
 
                     b.Property<decimal>("DonGia")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("HoaDonId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SoLuong")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TenKhoanThu")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal>("ThanhTien")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ChiTietHoaDonId");
+
+                    b.HasIndex("HoaDonId");
+
+                    b.ToTable("ChiTietHoaDons");
+                });
+
+            modelBuilder.Entity("QuanLyNhaTro.Models.DichVu", b =>
+                {
+                    b.Property<int>("DichVuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DichVuId"));
+
+                    b.Property<decimal>("DonGia")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("DonViTinh")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("TenDichVu")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("Id");
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("bit");
+
+                    b.HasKey("DichVuId");
 
                     b.ToTable("DichVus");
                 });
 
             modelBuilder.Entity("QuanLyNhaTro.Models.HoaDon", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("HoaDonId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
-                    b.Property<int>("HopDongId")
-                        .HasColumnType("INTEGER");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HoaDonId"));
+
+                    b.Property<decimal>("ConNo")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DaThanhToan")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("HanThanhToan")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Nam")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("NgayLap")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PhongId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Thang")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TienDichVu")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("TienDien")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("TienNuoc")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("TienPhong")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("TongTien")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("TrangThai")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
+                    b.HasKey("HoaDonId");
 
-                    b.HasIndex("HopDongId", "Thang", "Nam")
+                    b.HasIndex("PhongId", "Thang", "Nam")
                         .IsUnique();
 
                     b.ToTable("HoaDons");
@@ -95,131 +205,184 @@ namespace QuanLyNhaTro.Data.Migrations
 
             modelBuilder.Entity("QuanLyNhaTro.Models.HopDong", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("HopDongId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HopDongId"));
+
+                    b.Property<decimal>("GiaThue")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("NgayBatDau")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("NgayKetThuc")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("NguoiThueId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    b.Property<string>("NoiDung")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<int>("PhongId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TienCoc")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("TrangThai")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
+                    b.HasKey("HopDongId");
 
                     b.HasIndex("NguoiThueId");
 
-                    b.HasIndex("PhongId");
+                    b.HasIndex("PhongId")
+                        .IsUnique()
+                        .HasFilter("[TrangThai] = 'HieuLuc'");
 
                     b.ToTable("HopDongs");
                 });
 
             modelBuilder.Entity("QuanLyNhaTro.Models.NguoiThue", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("NguoiThueId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
-                    b.Property<string>("Cccd")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NguoiThueId"));
+
+                    b.Property<string>("AnhGiayTo")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("CCCD")
                         .HasMaxLength(20)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("DiaChi")
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("GioiTinh")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("HoTen")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("NgaySinh")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SoDienThoai")
                         .HasMaxLength(20)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("Id");
+                    b.HasKey("NguoiThueId");
+
+                    b.HasIndex("CCCD")
+                        .IsUnique()
+                        .HasFilter("[CCCD] IS NOT NULL AND [CCCD] <> ''");
 
                     b.ToTable("NguoiThues");
                 });
 
             modelBuilder.Entity("QuanLyNhaTro.Models.Phong", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PhongId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
-                    b.Property<int>("DienTichM2")
-                        .HasColumnType("INTEGER");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PhongId"));
+
+                    b.Property<decimal>("DienTich")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("GiaThue")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("HinhAnh")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("MoTa")
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SoNguoiToiDa")
+                        .HasColumnType("int");
 
                     b.Property<string>("TenPhong")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("TrangThai")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
+                    b.HasKey("PhongId");
 
                     b.ToTable("Phongs");
                 });
 
             modelBuilder.Entity("QuanLyNhaTro.Models.TaiKhoan", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("TaiKhoanId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaiKhoanId"));
 
                     b.Property<string>("HoTen")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("HoatDong")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("MatKhauHash")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TenDangNhap")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("bit");
 
                     b.Property<string>("VaiTro")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
+                    b.HasKey("TaiKhoanId");
 
                     b.HasIndex("TenDangNhap")
                         .IsUnique();
@@ -229,44 +392,151 @@ namespace QuanLyNhaTro.Data.Migrations
 
             modelBuilder.Entity("QuanLyNhaTro.Models.ThanhToan", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ThanhToanId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThanhToanId"));
 
                     b.Property<string>("GhiChu")
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("HoaDonId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("NgayThanhToan")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiThu")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("PhuongThuc")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("SoTien")
                         .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ThanhToanId");
 
                     b.HasIndex("HoaDonId");
 
                     b.ToTable("ThanhToans");
                 });
 
-            modelBuilder.Entity("QuanLyNhaTro.Models.HoaDon", b =>
+            modelBuilder.Entity("QuanLyNhaTro.Models.ThongBao", b =>
                 {
-                    b.HasOne("QuanLyNhaTro.Models.HopDong", "HopDong")
-                        .WithMany("HoaDons")
-                        .HasForeignKey("HopDongId")
+                    b.Property<int>("ThongBaoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThongBaoId"));
+
+                    b.Property<bool>("DaDoc")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DoiTuongNhan")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NoiDung")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<string>("TieuDe")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("ThongBaoId");
+
+                    b.ToTable("ThongBaos");
+                });
+
+            modelBuilder.Entity("QuanLyNhaTro.Models.YeuCauSuaChua", b =>
+                {
+                    b.Property<int>("YeuCauSuaChuaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("YeuCauSuaChuaId"));
+
+                    b.Property<string>("GhiChuXuLy")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("NgayGui")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiGui")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NoiDung")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("PhongId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TieuDe")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("TrangThai")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("YeuCauSuaChuaId");
+
+                    b.HasIndex("PhongId");
+
+                    b.ToTable("YeuCauSuaChuas");
+                });
+
+            modelBuilder.Entity("QuanLyNhaTro.Models.ChiSoDienNuoc", b =>
+                {
+                    b.HasOne("QuanLyNhaTro.Models.Phong", "Phong")
+                        .WithMany("ChiSoDienNuocs")
+                        .HasForeignKey("PhongId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("HopDong");
+                    b.Navigation("Phong");
+                });
+
+            modelBuilder.Entity("QuanLyNhaTro.Models.ChiTietHoaDon", b =>
+                {
+                    b.HasOne("QuanLyNhaTro.Models.HoaDon", "HoaDon")
+                        .WithMany("ChiTietHoaDons")
+                        .HasForeignKey("HoaDonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HoaDon");
+                });
+
+            modelBuilder.Entity("QuanLyNhaTro.Models.HoaDon", b =>
+                {
+                    b.HasOne("QuanLyNhaTro.Models.Phong", "Phong")
+                        .WithMany("HoaDons")
+                        .HasForeignKey("PhongId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Phong");
                 });
 
             modelBuilder.Entity("QuanLyNhaTro.Models.HopDong", b =>
@@ -299,14 +569,22 @@ namespace QuanLyNhaTro.Data.Migrations
                     b.Navigation("HoaDon");
                 });
 
-            modelBuilder.Entity("QuanLyNhaTro.Models.HoaDon", b =>
+            modelBuilder.Entity("QuanLyNhaTro.Models.YeuCauSuaChua", b =>
                 {
-                    b.Navigation("ThanhToans");
+                    b.HasOne("QuanLyNhaTro.Models.Phong", "Phong")
+                        .WithMany("YeuCauSuaChuas")
+                        .HasForeignKey("PhongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Phong");
                 });
 
-            modelBuilder.Entity("QuanLyNhaTro.Models.HopDong", b =>
+            modelBuilder.Entity("QuanLyNhaTro.Models.HoaDon", b =>
                 {
-                    b.Navigation("HoaDons");
+                    b.Navigation("ChiTietHoaDons");
+
+                    b.Navigation("ThanhToans");
                 });
 
             modelBuilder.Entity("QuanLyNhaTro.Models.NguoiThue", b =>
@@ -316,7 +594,13 @@ namespace QuanLyNhaTro.Data.Migrations
 
             modelBuilder.Entity("QuanLyNhaTro.Models.Phong", b =>
                 {
+                    b.Navigation("ChiSoDienNuocs");
+
+                    b.Navigation("HoaDons");
+
                     b.Navigation("HopDongs");
+
+                    b.Navigation("YeuCauSuaChuas");
                 });
 #pragma warning restore 612, 618
         }

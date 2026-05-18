@@ -16,6 +16,6 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync(CancellationToken cancellationToken)
     {
-        Stats = await _thongKe.LayThongKeAsync(cancellationToken);
+        Stats = await _thongKe.LayDashboardAsync(cancellationToken);
     }
 }

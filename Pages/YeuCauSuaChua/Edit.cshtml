@@ -1,0 +1,17 @@
+@page "/YeuCauSuaChua/Edit/{id:int}"
+@model QuanLyNhaTro.Pages.YeuCauSuaChua.EditModel
+@{ ViewData["Title"] = "Cập nhật sửa chữa"; }
+<article class="app-card col-md-6">
+<form method="post">
+<input type="hidden" asp-for="YeuCau.YeuCauSuaChuaId" />
+<p><label>Trạng thái</label>
+<select asp-for="YeuCau.TrangThai" class="form-select">
+<option value="ChoXuLy">Chờ xử lý</option>
+<option value="DangXuLy">Đang xử lý</option>
+<option value="HoanThanh">Hoàn thành</option>
+<option value="DaHuy">Đã hủy</option>
+</select></p>
+<p><label asp-for="YeuCau.GhiChuXuLy"></label><textarea asp-for="YeuCau.GhiChuXuLy" class="form-control"></textarea></p>
+<button type="submit" class="btn btn-primary">Lưu</button>
+</form>
+</article>

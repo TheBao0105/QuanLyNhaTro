@@ -1,0 +1,13 @@
+@page "/DichVu/Create"
+@model QuanLyNhaTro.Pages.DichVu.CreateModel
+@{ ViewData["Title"] = "Thêm dịch vụ"; }
+<article class="app-card col-md-6">
+<form method="post">
+    <p><label asp-for="DichVu.TenDichVu" class="form-label"></label><input asp-for="DichVu.TenDichVu" class="form-control" /></p>
+    <p><label asp-for="DichVu.DonGia" class="form-label"></label><input asp-for="DichVu.DonGia" class="form-control" /></p>
+    <p><label asp-for="DichVu.DonViTinh" class="form-label"></label><input asp-for="DichVu.DonViTinh" class="form-control" /></p>
+    <p><label asp-for="DichVu.GhiChu" class="form-label"></label><textarea asp-for="DichVu.GhiChu" class="form-control"></textarea></p>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-page="Index" class="btn btn-outline-secondary">Hủy</a>
+</form>
+</article>

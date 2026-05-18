@@ -7,41 +7,39 @@ namespace QuanLyNhaTro.Repositories;
 public class PhongRepository : IPhongRepository
 {
     private readonly AppDbContext _db;
-
     public PhongRepository(AppDbContext db) => _db = db;
 
-    public async Task<IReadOnlyList<Phong>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<Phong>> GetAllAsync(string? search = null, string? trangThai = null, CancellationToken ct = default)
     {
-        return await _db.Phongs.AsNoTracking().OrderBy(p => p.TenPhong).ToListAsync(cancellationToken);
+        var q = _db.Phongs.AsNoTracking().AsQueryable();
+        if (!string.IsNullOrWhiteSpace(search))
+            q = q.Where(p => p.TenPhong.Contains(search));
+        if (!string.IsNullOrWhiteSpace(trangThai))
+            q = q.Where(p => p.TrangThai == trangThai);
+        return await q.OrderBy(p => p.TenPhong).ToListAsync(ct);
     }
 
-    public async Task<Phong?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
-    {
-        return await _db.Phongs.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
-    }
+    public Task<Phong?> GetByIdAsync(int id, CancellationToken ct = default) =>
+        _db.Phongs.FirstOrDefaultAsync(p => p.PhongId == id, ct);
 
-    public async Task AddAsync(Phong phong, CancellationToken cancellationToken = default)
+    public async Task AddAsync(Phong phong, CancellationToken ct = default)
     {
+        phong.NgayTao = DateTime.UtcNow;
         _db.Phongs.Add(phong);
-        await _db.SaveChangesAsync(cancellationToken);
+        await _db.SaveChangesAsync(ct);
     }
 
-    public async Task UpdateAsync(Phong phong, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(Phong phong, CancellationToken ct = default)
     {
         _db.Phongs.Update(phong);
-        await _db.SaveChangesAsync(cancellationToken);
+        await _db.SaveChangesAsync(ct);
     }
 
-    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(int id, CancellationToken ct = default)
     {
-        var entity = await _db.Phongs.FindAsync(new object[] { id }, cancellationToken);
-        if (entity is null) return;
-        _db.Phongs.Remove(entity);
-        await _db.SaveChangesAsync(cancellationToken);
-    }
-
-    public Task<bool> ExistsAsync(int id, CancellationToken cancellationToken = default)
-    {
-        return _db.Phongs.AnyAsync(p => p.Id == id, cancellationToken);
+        var e = await _db.Phongs.FindAsync(new object[] { id }, ct);
+        if (e is null) return;
+        _db.Phongs.Remove(e);
+        await _db.SaveChangesAsync(ct);
     }
 }

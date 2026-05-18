@@ -22,7 +22,7 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int id, CancellationToken cancellationToken)
     {
-        var entity = await _db.HopDongs.FirstOrDefaultAsync(h => h.Id == id, cancellationToken);
+        var entity = await _db.HopDongs.FirstOrDefaultAsync(h => h.HopDongId == id, cancellationToken);
         if (entity is null)
             return NotFound();
         HopDong = entity;
@@ -44,9 +44,9 @@ public class EditModel : PageModel
     private async Task LoadLookupsAsync(CancellationToken cancellationToken)
     {
         var phongs = await _db.Phongs.AsNoTracking().OrderBy(p => p.TenPhong).ToListAsync(cancellationToken);
-        PhongSelect = new SelectList(phongs, nameof(global::QuanLyNhaTro.Models.Phong.Id), nameof(global::QuanLyNhaTro.Models.Phong.TenPhong), HopDong.PhongId);
+        PhongSelect = new SelectList(phongs, nameof(global::QuanLyNhaTro.Models.Phong.PhongId), nameof(global::QuanLyNhaTro.Models.Phong.TenPhong), HopDong.PhongId);
 
         var nguoi = await _db.NguoiThues.AsNoTracking().OrderBy(n => n.HoTen).ToListAsync(cancellationToken);
-        NguoiThueSelect = new SelectList(nguoi, nameof(global::QuanLyNhaTro.Models.NguoiThue.Id), nameof(global::QuanLyNhaTro.Models.NguoiThue.HoTen), HopDong.NguoiThueId);
+        NguoiThueSelect = new SelectList(nguoi, nameof(global::QuanLyNhaTro.Models.NguoiThue.NguoiThueId), nameof(global::QuanLyNhaTro.Models.NguoiThue.HoTen), HopDong.NguoiThueId);
     }
 }

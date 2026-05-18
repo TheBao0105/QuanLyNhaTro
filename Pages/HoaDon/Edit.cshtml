@@ -7,41 +7,41 @@
 <h1 class="h3 mb-3">@ViewData["Title"]</h1>
 
 <form method="post" class="col-md-7">
-    <input type="hidden" asp-for="HoaDon.Id" />
+    <input type="hidden" asp-for="Invoice.HoaDonId" />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="mb-3">
-        <label asp-for="HoaDon.HopDongId" class="form-label">Hợp đồng</label>
-        <select asp-for="HoaDon.HopDongId" asp-items="Model.HopDongSelect" class="form-select"></select>
+        <label asp-for="Invoice.PhongId" class="form-label">Phòng</label>
+        <select asp-for="Invoice.PhongId" asp-items="Model.PhongSelect" class="form-select"></select>
     </div>
     <div class="row">
         <div class="col mb-3">
-            <label asp-for="HoaDon.Thang" class="form-label"></label>
-            <input asp-for="HoaDon.Thang" class="form-control" />
+            <label asp-for="Invoice.Thang" class="form-label"></label>
+            <input asp-for="Invoice.Thang" class="form-control" />
         </div>
         <div class="col mb-3">
-            <label asp-for="HoaDon.Nam" class="form-label"></label>
-            <input asp-for="HoaDon.Nam" class="form-control" />
+            <label asp-for="Invoice.Nam" class="form-label"></label>
+            <input asp-for="Invoice.Nam" class="form-control" />
         </div>
     </div>
     <div class="mb-3">
-        <label asp-for="HoaDon.TienPhong" class="form-label"></label>
-        <input asp-for="HoaDon.TienPhong" class="form-control" />
+        <label asp-for="Invoice.TienPhong" class="form-label"></label>
+        <input asp-for="Invoice.TienPhong" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="HoaDon.TienDien" class="form-label"></label>
-        <input asp-for="HoaDon.TienDien" class="form-control" />
+        <label asp-for="Invoice.TienDien" class="form-label"></label>
+        <input asp-for="Invoice.TienDien" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="HoaDon.TienNuoc" class="form-label"></label>
-        <input asp-for="HoaDon.TienNuoc" class="form-control" />
+        <label asp-for="Invoice.TienNuoc" class="form-label"></label>
+        <input asp-for="Invoice.TienNuoc" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="HoaDon.TienDichVu" class="form-label"></label>
-        <input asp-for="HoaDon.TienDichVu" class="form-control" />
+        <label asp-for="Invoice.TienDichVu" class="form-label"></label>
+        <input asp-for="Invoice.TienDichVu" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="HoaDon.TrangThai" class="form-label"></label>
-        <select asp-for="HoaDon.TrangThai" class="form-select">
+        <label asp-for="Invoice.TrangThai" class="form-label"></label>
+        <select asp-for="Invoice.TrangThai" class="form-select">
             <option value="ChuaThanhToan">ChuaThanhToan</option>
             <option value="MotPhan">MotPhan</option>
             <option value="DaThanhToan">DaThanhToan</option>

@@ -1,28 +1,26 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using QuanLyNhaTro.Data;
-namespace QuanLyNhaTro.Pages.HoaDon;
-
-[Authorize]
-public class IndexModel : PageModel
-{
-    private readonly AppDbContext _db;
-
-    public IndexModel(AppDbContext db) => _db = db;
-
-    public List<QuanLyNhaTro.Models.HoaDon> Items { get; private set; } = new();
-
-    public async Task OnGetAsync(CancellationToken cancellationToken)
-    {
-        Items = await _db.HoaDons
-            .AsNoTracking()
-            .Include(h => h.HopDong)
-            .ThenInclude(d => d!.Phong)
-            .Include(h => h.HopDong)
-            .ThenInclude(d => d!.NguoiThue)
-            .OrderByDescending(h => h.Nam)
-            .ThenByDescending(h => h.Thang)
-            .ToListAsync(cancellationToken);
-    }
-}
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using QuanLyNhaTro.Repositories;
+
+namespace QuanLyNhaTro.Pages.HoaDon;
+
+[Authorize(Policy = "QuanLy")]
+public class IndexModel : PageModel
+{
+    private readonly IHoaDonRepository _repo;
+
+    public IndexModel(IHoaDonRepository repo) => _repo = repo;
+
+    public IReadOnlyList<HoaDonEntity> Items { get; private set; } = Array.Empty<HoaDonEntity>();
+
+    public int? Thang { get; set; }
+    public int? Nam { get; set; }
+    public string? TrangThai { get; set; }
+
+    public async Task OnGetAsync(int? thang, int? nam, string? trangThai, CancellationToken ct)
+    {
+        Thang = thang; Nam = nam; TrangThai = trangThai;
+        Items = await _repo.GetAllAsync(thang, nam, trangThai, ct);
+    }
+}
+

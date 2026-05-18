@@ -32,9 +32,13 @@
             <td>@h.TienCoc.ToString("N0") đ</td>
             <td>@h.TrangThai</td>
             <td>
-                <a class="btn btn-sm btn-outline-secondary" asp-page="Details" asp-route-id="@h.Id">Chi tiết</a>
-                <a class="btn btn-sm btn-outline-primary" asp-page="Edit" asp-route-id="@h.Id">Sửa</a>
-                <a class="btn btn-sm btn-outline-danger" asp-page="Delete" asp-route-id="@h.Id">Xóa</a>
+                <a class="btn btn-sm btn-outline-secondary" asp-page="Details" asp-route-id="@h.HopDongId">Chi tiết</a>
+                <a class="btn btn-sm btn-outline-primary" asp-page="Edit" asp-route-id="@h.HopDongId">Sửa</a>
+                @if (h.TrangThai == "HieuLuc") {
+                    <a class="btn btn-sm btn-outline-warning" asp-page="GiaHan" asp-route-id="@h.HopDongId">Gia hạn</a>
+                    <a class="btn btn-sm btn-outline-secondary" asp-page="KetThuc" asp-route-id="@h.HopDongId">Kết thúc</a>
+                }
+                <a class="btn btn-sm btn-outline-danger" asp-page="Delete" asp-route-id="@h.HopDongId">Xóa</a>
             </td>
         </tr>
     }

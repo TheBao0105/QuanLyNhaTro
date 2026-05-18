@@ -14,6 +14,7 @@ public class DetailsModel : PageModel
     public DetailsModel(AppDbContext db) => _db = db;
 
     public global::QuanLyNhaTro.Models.HopDong? HopDong { get; private set; }
+    public IList<global::QuanLyNhaTro.Models.HoaDon> HoaDons { get; private set; } = [];
 
     public async Task<IActionResult> OnGetAsync(int id, CancellationToken cancellationToken)
     {
@@ -21,11 +22,15 @@ public class DetailsModel : PageModel
             .AsNoTracking()
             .Include(h => h.Phong)
             .Include(h => h.NguoiThue)
-            .Include(h => h.HoaDons)
-            .FirstOrDefaultAsync(h => h.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(h => h.HopDongId == id, cancellationToken);
 
         if (HopDong is null)
             return NotFound();
+
+        HoaDons = await _db.HoaDons.AsNoTracking()
+            .Where(h => h.PhongId == HopDong.PhongId)
+            .OrderByDescending(h => h.Nam).ThenByDescending(h => h.Thang)
+            .ToListAsync(cancellationToken);
 
         return Page();
     }
